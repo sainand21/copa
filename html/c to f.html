@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=1" />
+  <title>Professional Responsive Input Interface</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    /* Reset and base */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: #f8fafc;
+      color: #111827;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Responsive container */
+    .container {
+      flex: 1 0 auto;
+      max-width: 1024px;
+      margin: 2rem auto 4rem;
+      padding: 0 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    header, footer {
+      flex-shrink: 0;
+      width: 100%;
+      background: #1f2937;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1.25rem;
+      user-select: none;
+    }
+
+    header .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    header .logo .material-icons {
+      font-size: 2rem;
+      color: #3b82f6;
+    }
+
+    footer {
+      font-size: 0.875rem;
+      justify-content: center;
+    }
+
+    /* Input group styling */
+    .input-group {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Common input style */
+    input[type="text"] {
+      font-size: 1.125rem;
+      padding: 0.75rem 1rem;
+      border: 2px solid #d1d5db;
+      border-radius: 12px;
+      flex: 1 1 auto;
+      transition:
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+      background: white;
+      min-width: 0;
+      line-height: 1.2;
+      outline-offset: 2px;
+    }
+
+    /* Focus and animation on inputs */
+    input[type="text"]:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+      outline: none;
+      animation: pulseBorder 1.5s infinite alternate;
+    }
+
+    /* Button styling - dynamic size */
+    input[type="button"] {
+      font-size: 1.125rem;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(45deg, #3b82f6, #06b6d4);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 10px rgba(6, 182, 212, 0.4);
+      transition:
+        background 0.4s ease,
+        transform 0.3s ease,
+        box-shadow 0.4s ease;
+      user-select: none;
+    }
+    input[type="button"]:hover,
+    input[type="button"]:focus {
+      background: linear-gradient(45deg, #2563eb, #0891b2);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(6, 182, 212, 0.7);
+      outline: none;
+    }
+    input[type="button"]:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 10px rgba(6, 182, 212, 0.4);
+    }
+
+    /* Pulse border animation for inputs */
+    @keyframes pulseBorder {
+      0% { border-color: #3b82f6; }
+      100% { border-color: #06b6d4; }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 767px) {
+      .input-group {
+        flex-direction: column;
+      }
+      input[type="button"] {
+        width: 100%;
+        min-width: auto;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 1.25rem;
+        border-radius: 16px;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      .container {
+        max-width: 1280px;
+        margin: 3rem auto 5rem;
+      }
+      header, footer {
+        padding: 1rem 4rem;
+      }
+      input[type="text"] {
+        font-size: 1.25rem;
+        padding: 1rem 1.25rem;
+        border-radius: 16px;
+      }
+      input[type="button"] {
+        font-size: 1.25rem;
+        padding: 1rem 2.5rem;
+        border-radius: 16px;
+        min-width: 160px;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="material-icons" aria-hidden="true">calculate</span>
+      ProCalc
+    </div>
+  </header>
+
+  <main class="container" role="main">
+    <form class="input-group" onsubmit="event.preventDefault(); f();">
+      <input type="text" id="c" placeholder="Enter temperature in °C" aria-label="Input temperature in Celsius" inputmode="numeric" pattern="[0-9]*" />
+      <input type="button" onclick="f()" value="Convert" aria-label="Convert Celsius to Fahrenheit temperature" />
+      <input type="text" id="f1" placeholder="Equivalent temperature in °F" aria-label="Output temperature in Fahrenheit" readonly />
+    </form>
+  </main>
+
+
+  <script>
+    function f() {
+      const input = document.getElementById('c').value.trim();
+      const celsius = parseFloat(input);
+      const outputElem = document.getElementById('f1');
+
+      if (isNaN(celsius)) {
+        outputElem.value = 'Please enter a valid number';
+        outputElem.style.color = '#b91c1c'; // red for error
+        return;
+      }
+
+      outputElem.style.color = '#111827'; // default text color
+      const fahrenheit = (celsius * 9 / 5) + 32;
+      outputElem.value = fahrenheit.toFixed(2) + ' °F';
+    }
+  </script>
+</body>
+</html>
+
+
+</body>
+</html>

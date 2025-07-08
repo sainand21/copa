@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Converter</title>
+</head>
+<body>
+
+    <input type="text" id="inputLength" placeholder="Enter length">
+    <select id="unitSelect">
+        <option value="feet">Feet to Meters</option>
+        <option value="meters">Meters to Feet</option>
+    </select>
+    <input type="button" onclick="convertLength()" value="Convert">
+    <input type="text" id="result" placeholder="Result" readonly>
+
+    <script>
+        function convertLength() {
+            var length = parseFloat(document.getElementById("inputLength").value);
+            var unit = document.getElementById("unitSelect").value;
+            var result;
+
+            if (unit === "feet") {
+                result = length * 0.3048; // Convert feet to meters
+                document.getElementById("result").value = result + " meters";
+            } else if (unit === "meters") {
+                result = length / 0.3048; // Convert meters to feet
+                document.getElementById("result").value = result + " feet";
+            } else {
+                document.getElementById("result").value = "Invalid unit";
+            }
+        }
+    </script>
+
+</body>
+</html>

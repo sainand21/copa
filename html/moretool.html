@@ -1,0 +1,225 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore More Tools | ToolBox</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #1463bd;
+            color: #0d2038;
+            line-height: 1.6;
+        }
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #0f2f66;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.4rem;
+            color: #cde020;
+            text-decoration: none;
+        }
+        .logo .material-icons {
+            font-size: 28px;
+            margin-right: 8px;
+        }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        nav a:hover {
+            color: #1a73e8;
+        }
+        .tools-explorer {
+            background: linear-gradient(180deg, #a1c7fd 0%, #d3e5ff 100%);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #0c2340;
+            text-align: center;
+        }
+        .page-subtitle {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: #17294a;
+            text-align: center;
+        }
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .tool-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(232, 26, 26, 0.3);
+        }
+        .tool-icon {
+            font-size: 48px;
+            color: #1a73e8;
+            background: #d7e6fd;
+            padding: 12px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            width: 72px;
+            height: 72px;
+        }
+        .tool-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #061930;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .try-btn {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+        }
+        .try-btn:hover {
+            background-color: #155ac2;
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            margin-top: 20px;
+            color: #1a73e8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .back-link:hover {
+            color: #0c4b9a;
+        }
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            nav {
+                width: 100%;
+                justify-content: center;
+            }
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <a href="index.html" class="logo">
+                <span class="material-icons">build</span>
+                ToolBox
+            </a>
+            <nav>
+                <a href="htmlhomepage.html">Home</a>
+                <a href="#" class="active"></a>
+                <a href="#">About</a>
+                <a href="contactus.html">Contact</a>
+            </nav>
+        </header>
+
+        <main class="tools-explorer">
+            <h1 class="page-title">Explore More Tools</h1>
+            <p class="page-subtitle">Discover our additional utility tools to make your tasks easier</p>
+
+            <div class="tools-grid">
+                <!-- Palindrome Checker -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <span class="material-icons">spellcheck</span>
+                    </div>
+                    <h3 class="tool-name">Palindrome Checker</h3>
+                    <a href="palidrome.html" class="try-btn">Try Now</a>
+                </div>
+
+                <!-- Kg to Grams Converter -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <span class="material-icons">scale</span>
+                    </div>
+                    <h3 class="tool-name">Kg to Grams Converter</h3>
+                    <a href="kg.html" class="try-btn">Try Now</a>
+                </div>
+
+                <!-- Length Converter -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <span class="material-icons">straighten</span>
+                    </div>
+                    <h3 class="tool-name">Length Converter</h3>
+                    <a href="length.converter.html" class="try-btn">Try Now</a>
+                </div>
+
+                <!-- Birth Year Finder -->
+                <div class="tool-card">
+                    <div class="tool-icon">
+                        <span class="material-icons">cake</span>
+                    </div>
+                    <h3 class="tool-name">Age Calculater</h3>
+                    <a href="age.html" class="try-btn">Try Now</a>
+                </div>
+            </div>
+
+            <a href="htmlhomepage.html" class="back-link">
+                <span class="material-icons">arrow_back</span> Back to main tools
+            </a>
+        </main>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,154 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Palindrome Checker</title>
+  <style>
+    /* Base reset and styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0 1rem;
+      color: #fff;
+    }
+
+    .container {
+      background: rgba(255 255 255 / 0.1);
+      padding: 2.5rem 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255 255 255 / 0.18);
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      font-size: 1.75rem;
+      text-transform: uppercase;
+      color: #fff;
+      user-select: none;
+    }
+
+    #h1 {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      border: none;
+      outline: none;
+      margin-bottom: 1rem;
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+      color: #333;
+      font-weight: 600;
+      background: #fff;
+      box-shadow: 0 0 5px #764ba2aa;
+    }
+    #h1:focus {
+      box-shadow: 0 0 12px #8e7ecfcc;
+      background: #fff;
+    }
+
+    input[type="button"] {
+      background: #8e7ecf;
+      border: none;
+      color: #fafafa;
+      padding: 0.75rem 2rem;
+      font-weight: 700;
+      font-size: 1rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px #764ba299;
+      transition: background 0.3s ease, transform 0.3s ease;
+      user-select: none;
+      margin-bottom: 1rem;
+    }
+    input[type="button"]:hover {
+      background: #a694df;
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px #9b8edfff;
+    }
+    input[type="button"]:active {
+      transform: scale(0.98);
+      box-shadow: none;
+    }
+
+    #result {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-size: 1.1rem;
+      border-radius: 0.5rem;
+      border: none;
+      outline: none;
+      user-select: none;
+      background: #eee;
+      color: #222;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 0 10px #764ba222 inset;
+      cursor: default;
+    }
+
+    /* Animation for result change */
+    .show-result {
+      animation: fadeInScale 0.4s ease forwards;
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Palindrome Checker Application">
+    <h1>Palindrome Checker</h1>
+    <input type="text" id="h1" aria-label="Input text to check palindrome" autocomplete="off" />
+    <input type="button" onclick="palindrome()" value="find" aria-label="Check if input text is palindrome"/>
+    <input type="text" id="result" readonly aria-live="polite" aria-label="Result display"/>
+  </div>
+
+  <script>
+    function palindrome() {
+      var revStr = "";
+      var str = document.getElementById("h1").value;
+      var i = str.length;
+      for (var j = i - 1; j >= 0; j--) {
+        revStr = revStr + str.charAt(j);
+      }
+
+      var resultInput = document.getElementById("result");
+      // Clear any prior animation class to restart animation on each check
+      resultInput.classList.remove("show-result");
+
+      // Small delay for re-trigger animation
+      setTimeout(() => {
+        if (str === revStr) {
+          resultInput.value = "'" + str + "' is a palindrome ✅";
+        } else {
+          resultInput.value = "'" + str + "' is not a palindrome ❌";
+        }
+        resultInput.classList.add("show-result");
+      }, 50);
+    }
+  </script>
+</body>
+</html>
