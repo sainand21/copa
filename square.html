@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Square Calculator</title>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<style>
+  /* Root and body styling with modern font and base colors */
+  :root {
+    --primary-color: #4f46e5; /* Indigo-600 */
+    --primary-color-dark: #3730a3; /* Indigo-800 */
+    --bg-color: #f9fafb;
+    --text-color: #111827;
+    --input-bg: #fff;
+    --input-border: #d1d5db;
+    --shadow-color: rgba(79, 70, 229, 0.3);
+    --border-radius: 12px;
+    --spacing: 16px;
+  }
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    background: var(--bg-color);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  header, footer {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem var(--spacing);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  header .logo, footer .text {
+    font-weight: 700;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+  }
+  header .logo .material-icons {
+    margin-right: 0.5rem;
+    font-size: 2rem;
+  }
+  footer .text {
+    font-size: 0.9rem;
+    flex: 1 0 100%;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing);
+  }
+  .calculator-container {
+    background: white;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 8px 24px var(--shadow-color);
+    border-radius: var(--border-radius);
+    padding: 2rem var(--spacing);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  input[type="text"] {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--input-border);
+    border-radius: var(--border-radius);
+    transition: border-color 0.3s ease;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px var(--primary-color);
+    background: #f0f4ff;
+  }
+  button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 0.9rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  button:hover {
+    background: var(--primary-color-dark);
+    transform: translateY(-2px);
+  }
+  button:active {
+    transform: translateY(0);
+  }
+  #p {
+    font-size: 1.4rem;
+    font-weight: 700;
+    min-height: 2rem;
+    text-align: center;
+    color: var(--primary-color-dark);
+  }
+  /* Responsive Layout */
+
+  /* Mobile: single column */
+  @media (max-width: 767px) {
+    header, footer {
+      justify-content: center;
+      text-align: center;
+      gap: 0.5rem;
+    }
+    .calculator-container {
+      padding: 1.5rem;
+    }
+  }
+  /* Desktop: Three column layout example (for extension) */
+  @media (min-width: 768px) and (max-width: 1439px) {
+    main {
+      padding: 4rem var(--spacing);
+    }
+  }
+  /* Large Desktop limits max width */
+  @media (min-width: 1440px) {
+    main {
+      padding: 4rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <span class="material-icons" aria-hidden="true">calculate</span>
+    Square Calculator
+  </div>
+</header>
+<main>
+  <div class="calculator-container" role="main" aria-label="Square calculator panel">
+    <label for="square">Enter a Number:</label>
+    <input
+      type="text"
+      inputmode="numeric"
+      id="square"
+      name="square"
+      placeholder="Type a number"
+      aria-describedby="result-desc"
+      aria-required="true"
+      autocomplete="off"
+    />
+    <button type="button" id="calc-btn" aria-label="Calculate square">
+      <span class="material-icons" aria-hidden="true">calculate</span>
+      Calculate
+    </button>
+    <p id="p" role="region" aria-live="polite" aria-atomic="true" aria-describedby="result-desc"></p>
+    <p id="result-desc" class="sr-only">The result of squaring the entered number</p>
+  </div>
+</main>
+
+<script>
+  // Utility: Check if value is valid number (allow decimals)
+  function isValidNumber(val) {
+    return !isNaN(val) && val.trim() !== '' && val !== null;
+  }
+  // Calculate the square and show result with dynamic update
+  const inputEl = document.getElementById('square');
+  const resultEl = document.getElementById('p');
+  const buttonEl = document.getElementById('calc-btn');
+  
+  function calculateSquare() {
+    const val = inputEl.value.trim();
+    if (!isValidNumber(val)) {
+      resultEl.textContent = 'Please enter a valid number.';
+      resultEl.style.color = '#dc2626'; // red color for error
+      return;
+    }
+    const num = Number(val);
+    const res = num ** 2;
+    resultEl.style.color = 'var(--primary-color-dark)';
+    resultEl.textContent = `Result: ${res}`;
+  }
+
+  // Calculate on button click
+  buttonEl.addEventListener('click', calculateSquare);
+
+  // Also calculate on input dynamically (with slight debounce)
+  let debounceTimeout = null;
+  inputEl.addEventListener('input', () => {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(calculateSquare, 400);
+  });
+
+  // Accessibility enhancement: allow Enter key to calculate
+  inputEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      calculateSquare();
+      e.preventDefault();
+    }
+  });
+</script>
+</body>
+</html>
+
+</body>
+</html>

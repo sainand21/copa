@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Age Calculator</title>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --text-color: #333;
+            --light-color: #f8f9fa;
+            --error-color: #f72585;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-color), #e2e2e2);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input[type="date"]:focus {
+            border-color: var(--accent-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #result {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(67, 97, 238, 0.1);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .result-value {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        #error {
+            color: var(--error-color);
+            margin-top: 10px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .animation {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Age Calculator</h1>
+        <div class="input-group">
+            <label for="dob">Enter your date of birth:</label>
+            <input type="date" id="dob" name="dob">
+            <div id="error">Please enter a valid date</div>
+        </div>
+        <button id="calculate-btn">Calculate Age</button>
+        
+        <div id="result">
+            <div class="result-item">
+                <span class="result-label">Your Age:</span>
+                <span id="years" class="result-value">0 years</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Months:</span>
+                <span id="months" class="result-value">0 months</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Days:</span>
+                <span id="days" class="result-value">0 days</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dobInput = document.getElementById('dob');
+            const calculateBtn = document.getElementById('calculate-btn');
+            const resultDiv = document.getElementById('result');
+            const errorDiv = document.getElementById('error');
+            const yearsSpan = document.getElementById('years');
+            const monthsSpan = document.getElementById('months');
+            const daysSpan = document.getElementById('days');
+            
+            // Set maximum date to today
+            const today = new Date();
+            const maxDate = new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString().split('T')[0];
+            dobInput.setAttribute('max', maxDate);
+            
+            calculateBtn.addEventListener('click', calculateAge);
+            
+            function calculateAge() {
+                // Reset errors and results
+                errorDiv.style.display = 'none';
+                resultDiv.style.display = 'none';
+                
+                const dobValue = dobInput.value;
+                
+                if (!dobValue) {
+                    showError("Please select your birth date");
+                    return;
+                }
+                
+                const birthDate = new Date(dobValue);
+                const today = new Date();
+                
+                if (birthDate > today) {
+                    showError("Birth date cannot be in the future");
+                    return;
+                }
+                
+                // Calculate age
+                let ageYears = today.getFullYear() - birthDate.getFullYear();
+                let ageMonths = today.getMonth() - birthDate.getMonth();
+                let ageDays = today.getDate() - birthDate.getDate();
+                
+                // Handle negative months/days
+                if (ageDays < 0) {
+                    ageMonths--;
+                    // Get the last day of the previous month
+                    const lastDayOfMonth = new Date(
+                        today.getFullYear(),
+                        today.getMonth(),
+                        0
+                    ).getDate();
+                    ageDays += lastDayOfMonth;
+                }
+                
+                if (ageMonths < 0) {
+                    ageYears--;
+                    ageMonths += 12;
+                }
+                
+                // Display results
+                yearsSpan.textContent = `${ageYears} ${ageYears === 1 ? 'year' : 'years'}`;
+                monthsSpan.textContent = `${ageMonths} ${ageMonths === 1 ? 'month' : 'months'}`;
+                daysSpan.textContent = `${ageDays} ${ageDays === 1 ? 'day' : 'days'}`;
+                
+                resultDiv.style.display = 'block';
+                resultDiv.classList.add('animation');
+            }
+            
+            function showError(message) {
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                errorDiv.classList.add('animation');
+            }
+        });
+    </script>
+</body>
+</html>
+

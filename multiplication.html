@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiplication Table</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #f0f8ff;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #ff6347;
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        button {
+            background-color: #7fffd4;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        button:hover {
+            transform: scale(1.1);
+        }
+        .result {
+            color: #4169e1;
+            margin-top: 20px;
+            font-size: 20px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <h1>Multiplication Table Fun!</h1>
+    <button onclick="generateTable()">Click to Generate</button>
+    <div class="result" id="result"></div>
+    
+    <script>
+        function generateTable() {
+            var m = prompt("Enter your number to find the multiplication table of a number:");
+            var resultHTML = "";
+            for (var i = 1; i <= 10; i++) {
+                var result = m * i;
+                resultHTML += m + " x " + i + " = " + result + "<br>";
+            }
+            document.getElementById('result').innerHTML = resultHTML;
+        }
+    </script>
+</body>
+</html>
+
+  
+</body>
+</html>

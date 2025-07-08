@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Standard Calculator</title>
+
+<!-- Google Material Icons CDN -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+
+<style>
+  /* Reset & base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f7fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #202124;
+  }
+
+  /* Header */
+  header {
+    background-color: #212121;
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  header nav {
+    display: flex;
+    gap: 24px;
+  }
+  header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  header nav a .material-icons {
+    font-size: 18px;
+  }
+
+  /* Footer */
+  footer {
+    background-color: #212121;
+    color: white;
+    padding: 16px 24px;
+    margin-top: auto;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  /* Main Content Container */
+  main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  /* Calculator Container */
+  .calculator {
+    background-color: #303030;
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 380px;
+    width: 100%;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto 1fr;
+    gap: 16px;
+  }
+
+  /* Display */
+  .display {
+    grid-column: span 4;
+    background-color: #212121;
+    color: white;
+    font-size: 3rem;
+    padding: 24px 20px;
+    border-radius: 12px;
+    text-align: right;
+    font-feature-settings: "tnum";
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+    overflow-wrap: break-word;
+    min-height: 72px;
+  }
+  input.display-input {
+    width: 100%;
+    font-size: 3rem;
+    font-family: 'Inter', sans-serif;
+    background: transparent;
+    border: none;
+    color: white;
+    outline: none;
+    padding-right: 10px;
+    text-align: right;
+  }
+
+  /* Buttons */
+  button {
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    height: 56px;
+    width: 56px;
+    box-shadow: none;
+    transition: background-color 0.3s ease, transform 0.15s ease;
+    color: white;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  button:focus {
+    outline: 2px solid #FFA726;
+    outline-offset: 2px;
+  }
+
+  /* Operators */
+  .operator {
+    background-color: #fb8c00;
+  }
+  .operator:hover {
+    background-color: #ef6c00;
+    transform: scale(1.05);
+  }
+
+  /* Numbers and others */
+  .number {
+    background-color: #4a4a4a;
+  }
+  .number:hover {
+    background-color: #5c5c5c;
+    transform: scale(1.05);
+  }
+
+  /* Equals */
+  .equals {
+    background-color: #4caf50;
+  }
+  .equals:hover {
+    background-color: #388e3c;
+    transform: scale(1.05);
+  }
+
+  /* Clear */
+  .clear {
+    background-color: #bf360c;
+  }
+  .clear:hover {
+    background-color: #d84315;
+    transform: scale(1.05);
+  }
+
+  /* Grid layout for buttons to match screenshot */
+  /* Operators in first column top to bottom */
+  .operator.plus    { grid-row: 2; grid-column: 1; }
+  .operator.minus   { grid-row: 3; grid-column: 1; }
+  .operator.multiply{ grid-row: 4; grid-column: 1; }
+  .operator.divide  { grid-row: 5; grid-column: 1; }
+  .clear            { grid-row: 6; grid-column: 1; }
+
+  /* Number keys 7 8 9 */
+  .number-seven  { grid-row: 2; grid-column: 2; }
+  .number-eight  { grid-row: 2; grid-column: 3; }
+  .number-nine   { grid-row: 2; grid-column: 4; }
+
+  /* Number keys 4 5 6 */
+  .number-four   { grid-row: 3; grid-column: 2; }
+  .number-five   { grid-row: 3; grid-column: 3; }
+  .number-six    { grid-row: 3; grid-column: 4; }
+
+  /* Number keys 1 2 3 */
+  .number-one    { grid-row: 4; grid-column: 2; }
+  .number-two    { grid-row: 4; grid-column: 3; }
+  .number-three  { grid-row: 4; grid-column: 4; }
+
+  /* Number key 0 */
+  .number-zero   { grid-row: 5; grid-column: 2; }
+
+  /* Decimal and equals */
+  .decimal       { grid-row: 5; grid-column: 3; }
+  .equals        { grid-row: 5; grid-column: 4; }
+
+  /* Responsive Breakpoints */
+  @media (max-width: 767px) {
+    main {
+      padding: 20px 10px;
+    }
+    .calculator {
+      max-width: 100%;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 20px;
+    }
+    .display {
+      font-size: 2.5rem;
+      padding: 16px 12px;
+      min-height: 56px;
+    }
+    button {
+      height: 48px;
+      width: 48px;
+      font-size: 1.2rem;
+    }
+  }
+  @media (min-width: 1440px) {
+    main {
+      padding: 80px 0;
+    }
+    .calculator {
+      max-width: 400px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo" aria-label="Calculator Logo">Calculator</div>
+  <nav aria-label="Primary Navigation">
+    <a href="#" class="nav-link" aria-current="page"><span class="material-icons" aria-hidden="true">home</span> Home</a>
+    <a href="#" class="nav-link"><span class="material-icons" aria-hidden="true">info</span> About</a>
+    <a href="#" class="nav-link"><span class="material-icons" aria-hidden="true">contact_page</span> Contact</a>
+  </nav>
+</header>
+
+<main>
+  <section class="calculator" role="region" aria-label="Standard Calculator">
+    <input id="display" class="display-input display" type="text" aria-live="polite" aria-atomic="true" readonly value="">
+    <!-- Operators -->
+    <button class="operator plus" aria-label="Add" onclick="appendToDisplay('+')">+</button>
+    <button class="operator minus" aria-label="Subtract" onclick="appendToDisplay('-')">-</button>
+    <button class="operator multiply" aria-label="Multiply" onclick="appendToDisplay('*')">*</button>
+    <button class="operator divide" aria-label="Divide" onclick="appendToDisplay('/')">/</button>
+    <button class="clear" aria-label="Clear" onclick="clearDisplay()">C</button>
+
+    <!-- Numbers -->
+    <button class="number number-seven" aria-label="Seven" onclick="appendToDisplay('7')">7</button>
+    <button class="number number-eight" aria-label="Eight" onclick="appendToDisplay('8')">8</button>
+    <button class="number number-nine" aria-label="Nine" onclick="appendToDisplay('9')">9</button>
+
+    <button class="number number-four" aria-label="Four" onclick="appendToDisplay('4')">4</button>
+    <button class="number number-five" aria-label="Five" onclick="appendToDisplay('5')">5</button>
+    <button class="number number-six" aria-label="Six" onclick="appendToDisplay('6')">6</button>
+
+    <button class="number number-one" aria-label="One" onclick="appendToDisplay('1')">1</button>
+    <button class="number number-two" aria-label="Two" onclick="appendToDisplay('2')">2</button>
+    <button class="number number-three" aria-label="Three" onclick="appendToDisplay('3')">3</button>
+
+    <button class="number number-zero" aria-label="Zero" onclick="appendToDisplay('0')">0</button>
+    <button class="decimal" aria-label="Decimal Point" onclick="appendToDisplay('.')">.</button>
+    <button class="equals" aria-label="Equals" onclick="calculate()">=</button>
+  </section>
+</main>
+
+
+<script>
+  const display = document.getElementById('display');
+
+  function appendToDisplay(input) {
+    // Prevent multiple operators in a row and handle initial decimal correctly.
+    const ops = ['+', '-', '*', '/'];
+    const lastChar = display.value.slice(-1);
+    if (ops.includes(input)) {
+      if (display.value === '' || ops.includes(lastChar)) {
+        // Don't allow operator as first char or repeated operators
+        return;
+      }
+    }
+    if(input === '.') {
+      // Avoid multiple decimals in current number segment
+      const parts = display.value.split(/[\+\-\*\/]/);
+      const lastNum = parts[parts.length - 1];
+      if (lastNum.includes('.')) return;
+      if(lastNum === '') display.value += '0';
+    }
+    display.value += input;
+  }
+
+  function clearDisplay() {
+    display.value = '';
+  }
+
+  function calculate() {
+    try {
+      // Evaluate with a safer function to avoid potential security risks if expanded for real app
+      // For now eval is acceptable for this demo.
+      if(display.value === '') return;
+      const lastChar = display.value.slice(-1);
+      const ops = ['+', '-', '*', '/'];
+      if(ops.includes(lastChar)) {
+        // Remove trailing operator to prevent error
+        display.value = display.value.slice(0, -1);
+      }
+      const result = Function('"use strict";return (' + display.value + ')')();
+      display.value = String(result);
+    } catch (error) {
+      display.value = 'Error';
+    }
+  }
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
